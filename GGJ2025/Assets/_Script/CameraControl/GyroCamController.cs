@@ -1,70 +1,62 @@
 using System.Collections;
 using UnityEngine;
+using System.Runtime.InteropServices;
 
 public class GyroCamController : MonoBehaviour
 {
-    private bool gyroEnabled;
-    private Gyroscope gyro;
-    private Quaternion initialGyroRotation;
     private Quaternion initialCameraRotation;
-
-    // Smoothing factor for smoother motion
+    private Quaternion initialGyroRotation;
     public float smoothing = 0.1f;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+    [DllImport("__Internal")]
+    private static extern void GetDeviceOrientation();
+#endif
 
     void Start()
     {
-        StartCoroutine(DelayEnableGyro());
+        initialCameraRotation = transform.rotation;
+        Invoke("InitializeGyro", 2f); // Delay to allow orientation data to initialize
     }
 
-    IEnumerator DelayEnableGyro()
+    void InitializeGyro()
     {
-        yield return new WaitForSeconds(2);
-
-        gyroEnabled = EnableGyro();
-        if (gyroEnabled)
-        {
-            // Capture the initial rotation of the camera
-            initialCameraRotation = transform.rotation;
-            // Capture the initial gyroscope reading
-            initialGyroRotation = GetGyroRotation();
-        }
-    }
-
-    bool EnableGyro()
-    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        initialGyroRotation = GetGyroRotation();
+#else
         if (SystemInfo.supportsGyroscope)
         {
-            gyro = Input.gyro;
-            gyro.enabled = true;
-            return true;
+            Input.gyro.enabled = true;
+            initialGyroRotation = GetGyroRotation();
         }
-        return false;
+        else
+        {
+            Debug.LogError("Gyroscope not supported on this device.");
+        }
+#endif
     }
 
     void Update()
     {
-        if (gyroEnabled)
-        {
-            // Get the current gyroscope rotation
-            Quaternion currentGyroRotation = GetGyroRotation();
-            // Calculate the offset from the initial gyroscope reading
-            Quaternion gyroOffset = Quaternion.Inverse(initialGyroRotation) * currentGyroRotation;
-
-            // Apply the offset to the initial camera rotation
-            Quaternion targetRotation = initialCameraRotation * gyroOffset;
-
-            // Apply smoothing
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothing);
-
-            // Debug log for tracking gyro rotation
-            Debug.Log("Gyro Rotation: " + gyroOffset.eulerAngles);
-        }
+        Quaternion currentGyroRotation = GetGyroRotation();
+        Quaternion gyroOffset = Quaternion.Inverse(initialGyroRotation) * currentGyroRotation;
+        Quaternion targetRotation = initialCameraRotation * gyroOffset;
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothing);
     }
 
     Quaternion GetGyroRotation()
     {
-        // Convert the device's rotation to Unity's coordinate system
-        Quaternion deviceRotation = gyro.attitude;
+#if UNITY_WEBGL && !UNITY_EDITOR
+        GetDeviceOrientation();
+        float alpha = 0; // Replace with actual JS-to-Unity communication
+        float beta = 0;  // Replace with actual JS-to-Unity communication
+        float gamma = 0; // Replace with actual JS-to-Unity communication
+
+        // Convert the orientation angles to a quaternion
+        return Quaternion.Euler(beta, -alpha, -gamma);
+#else
+        Quaternion deviceRotation = Input.gyro.attitude;
         return new Quaternion(deviceRotation.x, deviceRotation.y, -deviceRotation.z, -deviceRotation.w);
+#endif
     }
 }
