@@ -8,6 +8,9 @@ public class GyroCamController : MonoBehaviour
     private Quaternion initialGyroRotation;
     public float smoothing = 0.1f;
 
+    [HideInInspector] public float rotationX;
+    [HideInInspector] public float rotationY;
+
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")]
     private static extern void GetDeviceOrientation();
@@ -38,10 +41,19 @@ public class GyroCamController : MonoBehaviour
 
     void Update()
     {
+        Input.gyro.enabled = true;
+
         Quaternion currentGyroRotation = GetGyroRotation();
         Quaternion gyroOffset = Quaternion.Inverse(initialGyroRotation) * currentGyroRotation;
         Quaternion targetRotation = initialCameraRotation * gyroOffset;
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothing);
+
+        // Extract pitch and roll for the camera
+        Vector3 eulerRotation = targetRotation.eulerAngles;
+        transform.localRotation = Quaternion.Euler(eulerRotation.x, 0, eulerRotation.z);
+
+        // Store yaw separately
+        rotationX = eulerRotation.x;
+        rotationY = eulerRotation.y; // If you need to store pitch as well
     }
 
     Quaternion GetGyroRotation()
@@ -56,6 +68,7 @@ public class GyroCamController : MonoBehaviour
         return Quaternion.Euler(beta, -alpha, -gamma);
 #else
         Quaternion deviceRotation = Input.gyro.attitude;
+        // Convert the device's rotation to Unity's coordinate system
         return new Quaternion(deviceRotation.x, deviceRotation.y, -deviceRotation.z, -deviceRotation.w);
 #endif
     }

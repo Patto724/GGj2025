@@ -119,7 +119,10 @@ namespace StarterAssets
 
 		private void LateUpdate()
 		{
+#if UNITY_EDITOR
 			CameraRotation();
+#endif
+
 		}
 
 		private void GroundedCheck()
