@@ -1,4 +1,3 @@
-using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 
 namespace StarterAssets
@@ -7,7 +6,7 @@ namespace StarterAssets
     public class PlayerControllerMobile : MonoBehaviour
     {
         [SerializeField] FloatingJoystick joystick;
-        [SerializeField] GyroCamController gyroCamController;
+        public GyroCamController gyroCamController;
 
         [Header("Player")]
         public float MoveSpeed = 4.0f;

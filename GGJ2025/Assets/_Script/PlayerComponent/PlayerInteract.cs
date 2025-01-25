@@ -55,6 +55,7 @@ public class PlayerInteract : MonoBehaviour
                 bubbleParticle.Stop();
                 UIManager.instance.spellGroup.SetActive(false);
                 GameManager.instance.OnDisableBubble();
+                GameManager.instance.isStopBubbleInTime = true;
             }
         }
 

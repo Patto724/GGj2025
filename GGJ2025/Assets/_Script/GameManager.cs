@@ -1,6 +1,8 @@
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +17,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] ParticleSystem bubbleParticle;
     [SerializeField] AudioSource bubbleAudio;
     public List<Transform> bubbleSpots = new List<Transform>();
+
+    public bool isStopBubbleInTime = false;
+
+    [Space(10)]
+    [SerializeField] PlayableDirector cutscenePlayer;
 
     [SerializeField] List<Sprite> passwordSprites = new List<Sprite>();
     [SerializeField] List<GameObject> hintObjects = new List<GameObject>();
@@ -82,6 +89,19 @@ public class GameManager : MonoBehaviour
             {
                 timeToSpawnBubble = 5f;
             }
+
+            if (!isStopBubbleInTime)// jump scare
+            {
+                var playerCon = mainPlayer.GetComponent<PlayerControllerMobile>();
+
+                playerCon.enabled = false;
+                playerCon.gyroCamController.enabled = false;
+                playerCon.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+                playerCon.gyroCamController.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+                cutscenePlayer.Play();
+            }
+
+            isStopBubbleInTime = false;
         }
     }
 
