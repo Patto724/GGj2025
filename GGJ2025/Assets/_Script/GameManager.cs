@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject crowbarGO;
+    public GameObject crowbarGO_PC;
+    public GameObject crowbarGO_Mobile;
     public List<PickableScripableObject> pickableScripableObjects = new List<PickableScripableObject>();
 
     public static GameManager instance;
@@ -24,7 +25,8 @@ public class GameManager : MonoBehaviour
         pickableScripableObjects.Add(pickableScripableObject);
         if (pickableScripableObject.objectName == "Crowbar")
         {
-            crowbarGO.SetActive(true);
+            crowbarGO_PC.SetActive(true);
+            crowbarGO_Mobile.SetActive(true);
         }
     }
 
