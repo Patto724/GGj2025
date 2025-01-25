@@ -1340,11 +1340,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 397164381338121564, guid: d5fdd893efe98eb4e9e37cf920d12da0, type: 3}
   m_PrefabInstance: {fileID: 23935971}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &212005042 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
-  m_PrefabInstance: {fileID: 5393215579111688471}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &220304848
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1992,7 +1987,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8436040832801895188, guid: 66df245f95ba07443922534843b3713e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2030,6 +2025,11 @@ MonoBehaviour:
   spellLayer:
     serializedVersion: 2
     m_Bits: 512
+--- !u!1 &322692069 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8436040832801895188, guid: 66df245f95ba07443922534843b3713e, type: 3}
+  m_PrefabInstance: {fileID: 322692066}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &322692073 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7547638097594673276, guid: 66df245f95ba07443922534843b3713e, type: 3}
@@ -6102,7 +6102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9755c1c6bf718d64987cde8982e6c9cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainPlayer: {fileID: 212005042}
+  mainPlayer: {fileID: 322692069}
   crowbarGO_PC: {fileID: 1972901267}
   crowbarGO_Mobile: {fileID: 82739790}
   timeToSpawnBubble: 10
@@ -10812,7 +10812,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430823, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10862,7 +10862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_RootOrder
@@ -10927,7 +10927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8762286023885395077, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8762286023885395322, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
       propertyPath: m_RootOrder
