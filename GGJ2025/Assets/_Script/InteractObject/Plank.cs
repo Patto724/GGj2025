@@ -6,6 +6,9 @@ public class Plank : Interactable
     private int delaytime;
     private int disabletime = 10;
 
+    [Space(10)]
+    [SerializeField] AudioSource audioSource;
+
     public override void DoInteract()
     {
         if (GameManager.instance.HaveThisItem("Crowbar"))
@@ -13,6 +16,7 @@ public class Plank : Interactable
             plankBody.useGravity = true;
             plankBody.isKinematic = false;
             Invoke(nameof(DelayDisable), disabletime);
+            audioSource.Play();
             UIManager.instance.SetDialogText("i got it");
         }
         else
