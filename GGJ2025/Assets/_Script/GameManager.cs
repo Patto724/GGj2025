@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
 
     [Space(10)]
     [SerializeField] PlayableDirector cutscenePlayer;
+    [SerializeField] AudioSource ghostAudioSource;
 
     [SerializeField] List<Sprite> passwordSprites = new List<Sprite>();
     [SerializeField] List<GameObject> hintObjects = new List<GameObject>();
@@ -112,6 +113,7 @@ public class GameManager : MonoBehaviour
                 playerCon.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
                 playerCon.gyroCamController.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
                 cutscenePlayer.Play();
+                ghostAudioSource.Play();
             }
 
             isStopBubbleInTime = false;

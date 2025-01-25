@@ -17,6 +17,7 @@ public class Plank : Interactable
             plankBody.isKinematic = false;
             Invoke(nameof(DelayDisable), disabletime);
             audioSource.Play();
+            GameManager.instance.PlayVoice(2);
             UIManager.instance.SetDialogText("i got it");
         }
         else
