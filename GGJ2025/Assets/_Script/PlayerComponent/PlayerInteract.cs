@@ -56,6 +56,8 @@ public class PlayerInteract : MonoBehaviour
             }
         }
 
+        UIManager.instance.UseSpell();
+
         // Optional: Visualize the ray in the editor
         Debug.DrawRay(rayOrigin, rayDirection * spellRange, Color.green);
     }
