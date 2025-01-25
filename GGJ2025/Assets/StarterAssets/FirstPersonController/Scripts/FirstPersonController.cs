@@ -73,6 +73,8 @@ namespace StarterAssets
 			// 
 		//sound
 		
+		
+		
 
 	
 #if ENABLE_INPUT_SYSTEM
@@ -125,6 +127,7 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+			
 		}
 
 		private void LateUpdate()
@@ -209,6 +212,7 @@ namespace StarterAssets
 
 			// move the player
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+			
 		}
 
 		private void JumpAndGravity()
