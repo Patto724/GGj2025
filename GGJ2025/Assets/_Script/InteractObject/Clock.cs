@@ -3,13 +3,13 @@ using UnityEngine;
 public class Clock : Interactable
 {
    public Rigidbody clockBody;
-   private int delaytime = 10;
+   private int disabletime = 10;
   
    public override void DoInteract()
    {
       clockBody.useGravity = true;
       clockBody.isKinematic = false;
-      Invoke(nameof(DelayDisable), delaytime);
+      Invoke(nameof(DelayDisable), disabletime);
    }
 
    public void DelayDisable()

@@ -5,6 +5,8 @@ using System.Collections;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] TMP_Text dialogText;
+    
+    Coroutine setDialogCoroutine;
 
     public static UIManager instance;
 
@@ -22,7 +24,11 @@ public class UIManager : MonoBehaviour
 
     public void SetDialogText(string text)
     {
-        StartCoroutine(ShowDialogText(text));
+        if (setDialogCoroutine != null)
+        {
+            StopCoroutine(setDialogCoroutine);
+        }
+        setDialogCoroutine = StartCoroutine(ShowDialogText(text));
     }
 
     IEnumerator ShowDialogText(string text)
