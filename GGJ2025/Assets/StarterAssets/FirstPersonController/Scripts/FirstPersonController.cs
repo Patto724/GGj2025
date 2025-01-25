@@ -63,6 +63,16 @@ namespace StarterAssets
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
+		
+		// key item
+			// crowbar
+			// key
+			// 
+			// 
+			// 
+			// 
+		//sound
+		
 
 	
 #if ENABLE_INPUT_SYSTEM
