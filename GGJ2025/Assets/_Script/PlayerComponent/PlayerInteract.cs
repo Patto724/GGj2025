@@ -3,7 +3,9 @@ using UnityEngine;
 public class PlayerInteract : MonoBehaviour
 {
     public float raycastRange = 10.0f; // Adjustable range for the raycast
+    public float spellRange = 10.0f;
     public LayerMask interactableLayer; // Layer mask for the "Interactable" layer
+    public LayerMask spellLayer;
 
     private void Update()
     {
@@ -11,12 +13,15 @@ public class PlayerInteract : MonoBehaviour
         {
             PerformRaycast();
         }
+
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            PerformSpell();
+        }
     }
 
     public void PerformRaycast()
     {
-        Debug.Log("Performing raycast...");
-
         // Define the ray starting point and direction
         Vector3 rayOrigin = transform.position;
         Vector3 rayDirection = transform.forward;
@@ -33,5 +38,25 @@ public class PlayerInteract : MonoBehaviour
 
         // Optional: Visualize the ray in the editor
         Debug.DrawRay(rayOrigin, rayDirection * raycastRange, Color.green);
+    }
+
+    public void PerformSpell()
+    {
+        // Define the ray starting point and direction
+        Vector3 rayOrigin = transform.position;
+        Vector3 rayDirection = transform.forward;
+
+        // Perform the raycast
+        RaycastHit hit;
+        if (Physics.Raycast(rayOrigin, rayDirection, out hit, spellRange, spellLayer))
+        {
+            if (hit.collider.TryGetComponent(out ParticleSystem bubbleParticle))
+            {
+                bubbleParticle.Stop();
+            }
+        }
+
+        // Optional: Visualize the ray in the editor
+        Debug.DrawRay(rayOrigin, rayDirection * spellRange, Color.green);
     }
 }

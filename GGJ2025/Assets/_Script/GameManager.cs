@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
             int spotIndex = FindClosestBubbleSpot(mainPlayer.transform.position);
             bubbleParticle.transform.position = bubbleSpots[spotIndex].position;
             bubbleParticle.Play();
-            yield return new WaitForSeconds(7f);
+            yield return new WaitForSeconds(7f); 
             bubbleParticle.Stop();
             float reduceTime = timeToSpawnBubble * 0.1f;
             if(reduceTime < 1f)
