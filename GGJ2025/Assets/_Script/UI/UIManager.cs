@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class UIManager : MonoBehaviour
     public GameObject spellGroup;
     public Image spellIcon;
     public Image spellCooldown;
+
+    [Space(10)]
+    public Image blackScreen;
     
     Coroutine setDialogCoroutine;
 
@@ -77,5 +81,21 @@ public class UIManager : MonoBehaviour
         spellCooldown.fillAmount = 0;
 
         spellIcon.gameObject.GetComponent<Button>().interactable = true;
+    }
+
+    public void EndGameGood()
+    {
+        StartCoroutine(EndGameGoodSequence());
+    }
+
+    IEnumerator EndGameGoodSequence()
+    {
+        while (blackScreen.color.a < 1)
+        {
+            blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, blackScreen.color.a + Time.deltaTime);
+            yield return null;
+        }
+
+        SceneManager.LoadScene(0);
     }
 }

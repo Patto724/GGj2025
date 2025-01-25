@@ -71,6 +71,7 @@ public class Password : MonoBehaviour
         {
             // Correct code entered
             Debug.Log("Safe Unlocked!");
+            Handheld.Vibrate();
             safeAudioSource.Play();
             Invoke(nameof(GiveItemToPlayer), 1.0f);
         }

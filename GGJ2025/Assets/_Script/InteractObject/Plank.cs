@@ -5,6 +5,7 @@ public class Plank : Interactable
     public Rigidbody plankBody;
     private int delaytime;
     private int disabletime = 10;
+    public bool isBreak;
 
     [Space(10)]
     [SerializeField] AudioSource audioSource;
@@ -19,6 +20,9 @@ public class Plank : Interactable
             audioSource.Play();
             GameManager.instance.PlayVoice(2);
             UIManager.instance.SetDialogText("i got it");
+            Handheld.Vibrate();
+
+            isBreak = true;
         }
         else
         {

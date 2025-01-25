@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -114,6 +115,11 @@ public class GameManager : MonoBehaviour
                 playerCon.gyroCamController.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
                 cutscenePlayer.Play();
                 ghostAudioSource.Play();
+                Handheld.Vibrate();
+
+                yield return new WaitForSeconds(3f);
+
+                SceneManager.LoadScene(0);
             }
 
             isStopBubbleInTime = false;
@@ -185,5 +191,10 @@ public class GameManager : MonoBehaviour
     public void PlayVoice(int index)
     {
         voiceSource.PlayOneShot(voiceClips[index]);
+    }
+
+    public void GoodEnd()
+    {
+        UIManager.instance.EndGameGood();
     }
 }
