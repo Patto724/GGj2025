@@ -6,6 +6,7 @@ public class GyroCamController : MonoBehaviour
 {
     private Quaternion initialCameraRotation;
     private Quaternion initialGyroRotation;
+    bool isSetInitialGyroRotation = false;
     public float smoothing = 0.1f;
 
     [HideInInspector] public float rotationX;
@@ -27,12 +28,17 @@ public class GyroCamController : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
         initialGyroRotation = GetGyroRotation();
 #else
-        while (!Input.gyro.enabled)
+
+        yield return new WaitForSeconds(1); // Delay to allow orientation data to initialize
+
+        do
         {
-            if (SystemInfo.supportsGyroscope)
+            if (SystemInfo.supportsGyroscope && !isSetInitialGyroRotation)
             {
                 Input.gyro.enabled = true;
                 initialGyroRotation = GetGyroRotation();
+                isSetInitialGyroRotation = true;
+                Debug.Log("Gyro initialized successfully.");
             }
             else
             {
@@ -41,15 +47,20 @@ public class GyroCamController : MonoBehaviour
 
             yield return new WaitForSeconds(1);
         }
+        while (!Input.gyro.enabled);
 #endif
     }
 
     void Update()
     {
-        if(!Input.gyro.enabled)
-            return;
+        Input.gyro.enabled = true;//need this here for mobile to work for some reason (remote test works without this line)
 
-        Input.gyro.enabled = true;
+        if (!isSetInitialGyroRotation)
+        {
+            return;
+        }
+
+        //Input.gyro.enabled = true;
 
         Quaternion currentGyroRotation = GetGyroRotation();
         Quaternion gyroOffset = Quaternion.Inverse(initialGyroRotation) * currentGyroRotation;
@@ -62,6 +73,8 @@ public class GyroCamController : MonoBehaviour
         // Store yaw separately
         rotationX = eulerRotation.x;
         rotationY = eulerRotation.y; // If you need to store pitch as well
+
+        Debug.Log("eulerRotation: " + eulerRotation);
     }
 
     Quaternion GetGyroRotation()
