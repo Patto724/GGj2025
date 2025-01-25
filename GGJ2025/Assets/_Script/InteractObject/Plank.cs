@@ -8,10 +8,17 @@ public class Plank : Interactable
 
     public override void DoInteract()
     {
-        plankBody.useGravity = true;
-        plankBody.isKinematic = false;
-        Invoke(nameof(DelayDisable), disabletime);
-        UIManager.instance.SetDialogText("i got it");
+        if (GameManager.instance.HaveThisItem("Crowbar"))
+        {
+            plankBody.useGravity = true;
+            plankBody.isKinematic = false;
+            Invoke(nameof(DelayDisable), disabletime);
+            UIManager.instance.SetDialogText("i got it");
+        }
+        else
+        {
+            UIManager.instance.SetDialogText("need some tool");
+        }
     }
     
     public void DelayDisable()

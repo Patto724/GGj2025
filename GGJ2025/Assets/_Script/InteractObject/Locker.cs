@@ -1,16 +1,16 @@
 using UnityEngine;
 
-public class Locker : MonoBehaviour
+public class Locker : Interactable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private PickableScripableObject crowbarSO;
+    private bool itsPicked = false;
+    public override void DoInteract()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        if (!itsPicked)
+        {
+            GameManager.instance.AddPickableObject(crowbarSO);
+            itsPicked = true;
+        }
         
     }
 }
