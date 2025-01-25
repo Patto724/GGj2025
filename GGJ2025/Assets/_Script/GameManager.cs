@@ -64,7 +64,12 @@ public class GameManager : MonoBehaviour
             bubbleParticle.Play();
             yield return new WaitForSeconds(7f);
             bubbleParticle.Stop();
-            timeToSpawnBubble -= timeToSpawnBubble * 0.1f;
+            float reduceTime = timeToSpawnBubble * 0.1f;
+            if(reduceTime < 1f)
+            {
+                reduceTime = 1f;
+            }
+            timeToSpawnBubble -= reduceTime;
             if(timeToSpawnBubble < 5f)
             {
                 timeToSpawnBubble = 5f;
