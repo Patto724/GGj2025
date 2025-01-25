@@ -179,4 +179,9 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(BubbleSpawnCycle());
     }
+
+    public void PlayVoice(int index)
+    {
+        voiceSource.PlayOneShot(voiceClips[index]);
+    }
 }

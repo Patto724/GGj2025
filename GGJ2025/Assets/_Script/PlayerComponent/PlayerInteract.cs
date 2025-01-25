@@ -43,6 +43,8 @@ public class PlayerInteract : MonoBehaviour
 
     public void PerformSpell()
     {
+        GameManager.instance.PlayVoice(1);
+
         // Define the ray starting point and direction
         Vector3 rayOrigin = transform.position;
         Vector3 rayDirection = transform.forward;
