@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] ParticleSystem bubbleParticle;
     public List<Transform> bubbleSpots = new List<Transform>();
 
+    [SerializeField] List<Sprite> passwordSprites = new List<Sprite>();
+    [SerializeField] List<GameObject> hintObjects = new List<GameObject>();
+
     public static GameManager instance;
     private void Awake()
     {
@@ -30,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        SetupPasswordHint();
         StartCoroutine(BubbleSpawnCycle());
     }
 
@@ -91,5 +95,22 @@ public class GameManager : MonoBehaviour
             }
         }
         return index;
+    }
+
+    void SetupPasswordHint()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            int randomIndex = Random.Range(0, hintObjects.Count);
+            if (hintObjects[randomIndex].activeSelf == false)
+            {
+                hintObjects[randomIndex].SetActive(true);
+                hintObjects[randomIndex].GetComponent<SpriteRenderer>().sprite = passwordSprites[i];
+            }
+            else
+            {
+                i--;
+            }
+        }
     }
 }
