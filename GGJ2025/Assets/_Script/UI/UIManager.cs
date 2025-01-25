@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text dialogText;
 
     [Space(10)]
+    public GameObject spellGroup;
     public Image spellIcon;
     public Image spellCooldown;
     

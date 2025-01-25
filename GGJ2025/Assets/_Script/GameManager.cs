@@ -63,11 +63,13 @@ public class GameManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(timeToSpawnBubble);
+            UIManager.instance.spellGroup.SetActive(true);
             int spotIndex = FindClosestBubbleSpot(mainPlayer.transform.position);
             bubbleParticle.transform.position = bubbleSpots[spotIndex].position;
             bubbleParticle.Play();
             yield return new WaitForSeconds(7f); 
             bubbleParticle.Stop();
+            OnDisableBubble();
             float reduceTime = timeToSpawnBubble * 0.1f;
             if(reduceTime < 1f)
             {
@@ -79,6 +81,11 @@ public class GameManager : MonoBehaviour
                 timeToSpawnBubble = 5f;
             }
         }
+    }
+
+    public void OnDisableBubble()
+    {
+        UIManager.instance.spellGroup.SetActive(false);
     }
 
     int FindClosestBubbleSpot(Vector3 playerPos)

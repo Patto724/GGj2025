@@ -53,6 +53,7 @@ public class PlayerInteract : MonoBehaviour
             if (hit.collider.TryGetComponent(out ParticleSystem bubbleParticle))
             {
                 bubbleParticle.Stop();
+                UIManager.instance.spellGroup.SetActive(false);
             }
         }
 

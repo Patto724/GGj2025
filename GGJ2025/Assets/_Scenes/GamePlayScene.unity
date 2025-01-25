@@ -2201,6 +2201,7 @@ MonoBehaviour:
   safeLock: {fileID: 932820457}
   howToPaper: {fileID: 325635251}
   dialogText: {fileID: 306239552}
+  spellGroup: {fileID: 1964602097}
   spellIcon: {fileID: 1685808587}
   spellCooldown: {fileID: 835116592}
 --- !u!1001 &314914669
@@ -2594,8 +2595,7 @@ RectTransform:
   - {fileID: 306239551}
   - {fileID: 185844761}
   - {fileID: 941255743}
-  - {fileID: 835116591}
-  - {fileID: 1685808585}
+  - {fileID: 1964602098}
   m_Father: {fileID: 311476179}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6040,11 +6040,11 @@ RectTransform:
   m_LocalScale: {x: 0.78541666, y: 0.78541666, z: 0.78541666}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 337685558}
+  m_Father: {fileID: 1964602098}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -276, y: 622}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -157.78662, y: -0.068237305}
   m_SizeDelta: {x: 401.7908, y: 412.3462}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &835116592
@@ -10751,11 +10751,11 @@ RectTransform:
   m_LocalScale: {x: 0.78541666, y: 0.78541666, z: 0.78541666}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 337685558}
+  m_Father: {fileID: 1964602098}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -276, y: 622}
+  m_AnchoredPosition: {x: -157.78662, y: 161.93176}
   m_SizeDelta: {x: 401.7908, y: 412.3462}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1685808586
@@ -12593,6 +12593,43 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5fdd893efe98eb4e9e37cf920d12da0, type: 3}
+--- !u!1 &1964602097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1964602098}
+  m_Layer: 5
+  m_Name: SpellGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1964602098
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964602097}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 835116591}
+  - {fileID: 1685808585}
+  m_Father: {fileID: 337685558}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 684, y: 82}
+  m_SizeDelta: {x: 315.57324, y: 323.86356}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1967750902
 PrefabInstance:
   m_ObjectHideFlags: 0
