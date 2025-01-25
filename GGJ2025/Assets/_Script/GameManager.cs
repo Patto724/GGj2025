@@ -3,13 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] PlayerControllerMobile playConMobile;
+    [SerializeField] GyroCamController gyroCon;
+    [SerializeField] GameObject GamePlayUIGroup;
+    [SerializeField] Image titleImage;
+    [SerializeField] GameObject titleGroup;
+    bool clickTitle = false;
+
+    [Space(10)]
     [SerializeField] GameObject mainPlayer;
     public GameObject crowbarGO_PC;
     public GameObject crowbarGO_Mobile;
 
+    [Space(10)]
+    [SerializeField] AudioSource voiceSource;
+    [SerializeField] List<AudioClip> voiceClips = new List<AudioClip>();
+
+    [Space(10)]
     [SerializeField] float timeToSpawnBubble = 20f;
 
     public List<PickableScripableObject> pickableScripableObjects = new List<PickableScripableObject>();
@@ -42,7 +56,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SetupPasswordHint();
-        StartCoroutine(BubbleSpawnCycle());
     }
 
     public void AddPickableObject(PickableScripableObject pickableScripableObject)
@@ -142,5 +155,28 @@ public class GameManager : MonoBehaviour
                 i--;
             }
         }
+    }
+
+    public void GameStart()
+    {
+        clickTitle = true;
+        StartCoroutine(GameStartSequence());
+    }
+
+    IEnumerator GameStartSequence()
+    {
+        while(titleImage.color.a > 0)
+        {
+            titleImage.color = new Color(titleImage.color.r, titleImage.color.g, titleImage.color.b, titleImage.color.a - Time.deltaTime);
+            yield return null;
+        }
+
+        titleGroup.SetActive(false);
+        GamePlayUIGroup.SetActive(true);
+        playConMobile.enabled = true;
+        gyroCon.enabled = true;
+        voiceSource.PlayOneShot(voiceClips[0]);
+
+        StartCoroutine(BubbleSpawnCycle());
     }
 }
