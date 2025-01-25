@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 using TMPro;
 using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
+
+    public GameObject safeLock;
     [SerializeField] TMP_Text dialogText;
     
     Coroutine setDialogCoroutine;
@@ -19,6 +22,13 @@ public class UIManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            safeLock.SetActive(false);
         }
     }
 
@@ -37,4 +47,6 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         dialogText.text = "";
     }
+
+    
 }

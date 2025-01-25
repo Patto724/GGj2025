@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Password : MonoBehaviour
 {
+    
     public GameObject canvas;
     public TMP_Text[] digitTexts;        // Array of Text components to display each digit
     public Button[] buttonUp; // Buttons to increase digits
