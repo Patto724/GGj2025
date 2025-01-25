@@ -1436,7 +1436,7 @@ MonoBehaviour:
     m_Bits: 128
   spellLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
 --- !u!1001 &279751611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2027,7 +2027,7 @@ MonoBehaviour:
     m_Bits: 128
   spellLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
 --- !u!4 &322692073 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7547638097594673276, guid: 66df245f95ba07443922534843b3713e, type: 3}
