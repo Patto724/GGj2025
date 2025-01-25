@@ -74,7 +74,7 @@ public class GyroCamController : MonoBehaviour
         rotationX = eulerRotation.x;
         rotationY = eulerRotation.y; // If you need to store pitch as well
 
-        Debug.Log("eulerRotation: " + eulerRotation);
+        //Debug.Log("eulerRotation: " + eulerRotation);
     }
 
     Quaternion GetGyroRotation()

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public List<PickableScripableObject> pickableScripableObjects = new List<PickableScripableObject>();
     [Space(10)]
     [SerializeField] ParticleSystem bubbleParticle;
+    [SerializeField] AudioSource bubbleAudio;
     public List<Transform> bubbleSpots = new List<Transform>();
 
     [SerializeField] List<Sprite> passwordSprites = new List<Sprite>();
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
             int spotIndex = FindClosestBubbleSpot(mainPlayer.transform.position);
             bubbleParticle.transform.position = bubbleSpots[spotIndex].position;
             bubbleParticle.Play();
+            bubbleAudio.PlayOneShot(bubbleAudio.clip);
             yield return new WaitForSeconds(7f); 
             bubbleParticle.Stop();
             OnDisableBubble();
@@ -86,6 +88,7 @@ public class GameManager : MonoBehaviour
     public void OnDisableBubble()
     {
         UIManager.instance.spellGroup.SetActive(false);
+        bubbleAudio.Stop();
     }
 
     int FindClosestBubbleSpot(Vector3 playerPos)
