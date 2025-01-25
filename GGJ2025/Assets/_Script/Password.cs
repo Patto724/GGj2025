@@ -13,6 +13,8 @@ public class Password : MonoBehaviour
     private string currentPassword;
     public string correctCode = "1234"; // Correct 4-digit code
     private int[] currentDigits = new int[4]; // Array to store current digits
+    [SerializeField] PickableScripableObject itemToGive;
+    [SerializeField] AudioSource safeAudioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -69,7 +71,14 @@ public class Password : MonoBehaviour
         {
             // Correct code entered
             Debug.Log("Safe Unlocked!");
-            canvas.SetActive(false);
+            //safeAudioSource.Play();
+            Invoke(nameof(GiveItemToPlayer), 1.0f);
         }
+    }
+
+    void GiveItemToPlayer()
+    {
+        GameManager.instance.AddPickableObject(itemToGive);
+        canvas.SetActive(false);
     }
 }
