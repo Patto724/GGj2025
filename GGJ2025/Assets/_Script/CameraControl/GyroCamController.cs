@@ -19,28 +19,36 @@ public class GyroCamController : MonoBehaviour
     void Start()
     {
         initialCameraRotation = transform.rotation;
-        Invoke("InitializeGyro", 2f); // Delay to allow orientation data to initialize
+        StartCoroutine(InitializeGyro()); // Delay to allow orientation data to initialize
     }
 
-    void InitializeGyro()
+    IEnumerator InitializeGyro()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
         initialGyroRotation = GetGyroRotation();
 #else
-        if (SystemInfo.supportsGyroscope)
+        while (!Input.gyro.enabled)
         {
-            Input.gyro.enabled = true;
-            initialGyroRotation = GetGyroRotation();
-        }
-        else
-        {
-            Debug.LogError("Gyroscope not supported on this device.");
+            if (SystemInfo.supportsGyroscope)
+            {
+                Input.gyro.enabled = true;
+                initialGyroRotation = GetGyroRotation();
+            }
+            else
+            {
+                Debug.LogError("Gyroscope not supported on this device.");
+            }
+
+            yield return new WaitForSeconds(1);
         }
 #endif
     }
 
     void Update()
     {
+        if(!Input.gyro.enabled)
+            return;
+
         Input.gyro.enabled = true;
 
         Quaternion currentGyroRotation = GetGyroRotation();
