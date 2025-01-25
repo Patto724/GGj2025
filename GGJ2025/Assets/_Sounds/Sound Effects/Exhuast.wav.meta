@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 95d02f840e928ec4d82968ab45d49e15
+guid: ea990ad4fac7d984b8a38eefe8c40f75
 AudioImporter:
   externalObjects: {}
   serializedVersion: 6
@@ -22,8 +22,8 @@ AudioImporter:
   assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
-  productId: 189879
-  packageName: Footsteps - Essentials
-  packageVersion: 1.3
-  assetPath: Assets/Footsteps - Essentials/Footsteps_Water/Footsteps_Water_Jump/Footsteps_Water_Jump_Big_01.wav
-  uploadId: 473093
+  productId: 214441
+  packageName: Voices - Essentials
+  packageVersion: 1.0
+  assetPath: Assets/Voices - Essentials/Voice_Male/Voice_Male_Breath/Voice_Male_V1_Breath_Mouth_Strong_Loop_Mono.wav
+  uploadId: 482792
