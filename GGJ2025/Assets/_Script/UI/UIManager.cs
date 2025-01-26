@@ -43,6 +43,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        StartGame();
+    }
+
     public void SetDialogText(string text)
     {
         if (setDialogCoroutine != null)
@@ -96,6 +101,24 @@ public class UIManager : MonoBehaviour
             yield return null;
         }
 
+        yield return new WaitForSeconds(2.542f);
+
         SceneManager.LoadScene(0);
+    }
+
+    public void StartGame()
+    {
+        StartCoroutine(StartGameSequence());
+    }
+
+    IEnumerator StartGameSequence()
+    {
+        yield return new WaitForSeconds(1f);
+
+        while (blackScreen.color.a > 0)
+        {
+            blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, blackScreen.color.a - Time.deltaTime);
+            yield return null;
+        }
     }
 }
