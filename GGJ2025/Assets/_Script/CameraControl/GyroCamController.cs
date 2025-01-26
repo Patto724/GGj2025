@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using System.Runtime.InteropServices;
 
 public class GyroCamController : MonoBehaviour
 {
