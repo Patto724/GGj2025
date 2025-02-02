@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using System.Runtime.InteropServices;
 
 public class GyroCamController : MonoBehaviour
 {
@@ -14,81 +15,82 @@ public class GyroCamController : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")]
     private static extern void GetDeviceOrientation();
+    [DllImport("__Internal")]
+    private static extern float GetAlpha();
+    [DllImport("__Internal")]
+    private static extern float GetBeta();
+    [DllImport("__Internal")]
+    private static extern float GetGamma();
 #endif
 
     void Start()
     {
         initialCameraRotation = transform.rotation;
-        StartCoroutine(InitializeGyro()); // Delay to allow orientation data to initialize
+        StartCoroutine(InitializeGyro());
     }
 
     IEnumerator InitializeGyro()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
+        GetDeviceOrientation();
+        yield return new WaitForSeconds(1); // Allow time for orientation data to initialize
         initialGyroRotation = GetGyroRotation();
+        isSetInitialGyroRotation = true;
 #else
+        yield return new WaitForSeconds(1);
 
-        yield return new WaitForSeconds(1); // Delay to allow orientation data to initialize
-
-        do
+        if (SystemInfo.supportsGyroscope)
         {
-            if (SystemInfo.supportsGyroscope && !isSetInitialGyroRotation)
-            {
-                Input.gyro.enabled = true;
-                initialGyroRotation = GetGyroRotation();
-                isSetInitialGyroRotation = true;
-                Debug.Log("Gyro initialized successfully.");
-            }
-            else
-            {
-                Debug.LogError("Gyroscope not supported on this device.");
-            }
-
-            yield return new WaitForSeconds(1);
+            Input.gyro.enabled = true;
+            initialGyroRotation = GetGyroRotation();
+            isSetInitialGyroRotation = true;
+            Debug.Log("Gyro initialized successfully.");
         }
-        while (!Input.gyro.enabled);
+        else
+        {
+            Debug.LogError("Gyroscope not supported on this device.");
+        }
 #endif
     }
 
     void Update()
     {
         Input.gyro.enabled = true;//need this here for mobile to work for some reason (remote test works without this line)
-
+#if UNITY_WEBGL && !UNITY_EDITOR
         if (!isSetInitialGyroRotation)
         {
             return;
         }
-
-        //Input.gyro.enabled = true;
+#endif
 
         Quaternion currentGyroRotation = GetGyroRotation();
         Quaternion gyroOffset = Quaternion.Inverse(initialGyroRotation) * currentGyroRotation;
         Quaternion targetRotation = initialCameraRotation * gyroOffset;
 
-        // Extract pitch and roll for the camera
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothing);
+
         Vector3 eulerRotation = targetRotation.eulerAngles;
-        transform.localRotation = Quaternion.Euler(eulerRotation.x, 0, eulerRotation.z);
-
-        // Store yaw separately
         rotationX = eulerRotation.x;
-        rotationY = eulerRotation.y; // If you need to store pitch as well
-
-        //Debug.Log("eulerRotation: " + eulerRotation);
+        rotationY = eulerRotation.y;
     }
 
     Quaternion GetGyroRotation()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
-        GetDeviceOrientation();
-        float alpha = 0; // Replace with actual JS-to-Unity communication
-        float beta = 0;  // Replace with actual JS-to-Unity communication
-        float gamma = 0; // Replace with actual JS-to-Unity communication
+        float alpha = GetAlpha();
+        float beta = GetBeta();
+        float gamma = GetGamma();
 
-        // Convert the orientation angles to a quaternion
-        return Quaternion.Euler(beta, -alpha, -gamma);
+        return Quaternion.Euler(gamma, -alpha, alpha);
+
+        //1st axis is for up and down motion
+        //2nd axis is for left and right motion
+        //3rd axis is for roll left and right motion
+        //GetAlpha data is from turn left and right
+        //GetBeta data is from roll left and right
+        //GetGamma data is from turn up and down
 #else
         Quaternion deviceRotation = Input.gyro.attitude;
-        // Convert the device's rotation to Unity's coordinate system
         return new Quaternion(deviceRotation.x, deviceRotation.y, -deviceRotation.z, -deviceRotation.w);
 #endif
     }
