@@ -20,7 +20,7 @@ public class Plank : Interactable
             audioSource.Play();
             GameManager.instance.PlayVoice(2);
             UIManager.instance.SetDialogText("i got it");
-            Handheld.Vibrate();
+            //Handheld.Vibrate();
 
             isBreak = true;
         }

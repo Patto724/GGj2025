@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
                 playerCon.gyroCamController.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
                 cutscenePlayer.Play();
                 ghostAudioSource.Play();
-                Handheld.Vibrate();
+                //Handheld.Vibrate();
 
                 yield return new WaitForSeconds(3f);
 

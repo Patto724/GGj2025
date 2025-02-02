@@ -8592,7 +8592,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c279b3268e95f724f90606028d791ca7, type: 3}
   - {fileID: 8300000, guid: 139da63036492004d9b4b79ee96b8174, type: 3}
   - {fileID: 8300000, guid: d5876438769135948a9293bdecbd244d, type: 3}
-  timeToSpawnBubble: 10
+  timeToSpawnBubble: 30
   pickableScripableObjects: []
   bubbleParticle: {fileID: 564973473}
   bubbleAudio: {fileID: 564973477}
